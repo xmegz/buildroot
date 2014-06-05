@@ -4,12 +4,11 @@
 #
 ################################################################################
 
-SUNXI_MALI_VERSION = c2491fe952354ba44538064e534ed7c731cedb1e
+SUNXI_MALI_VERSION = d343311efc8db166d8371b28494f0f27b6a58724
 SUNXI_MALI_SITE = $(call github,linux-sunxi,sunxi-mali,$(SUNXI_MALI_VERSION))
 
 SUNXI_MALI_INSTALL_STAGING = YES
-SUNXI_MALI_DEPENDENCIES = sunxi-mali-prop
-SUNXI_MALI_PROVIDES = libegl libgles
+SUNXI_MALI_DEPENDENCIES = sunxi-mali-prop sunxi-mali-ump
 
 # The options below must be provided in the environment.  Providing these
 # through options overrides the value and prevents the makefiles from
@@ -40,6 +39,11 @@ endif
 ifeq ($(BR2_PACKAGE_SUNXI_MALI_R3P1),y)
 SUNXI_MALI_MAKE_OPTS += VERSION=r3p1
 endif
+
+ifeq ($(BR2_PACKAGE_SUNXI_MALI_R3P2),y)
+SUNXI_MALI_MAKE_OPTS += VERSION=r3p2-01rel1
+endif
+
 
 define SUNXI_MALI_GIT_SUBMODULE_FIXUP
 	rm -rf $(@D)/lib/mali
@@ -76,8 +80,8 @@ define SUNXI_MALI_INSTALL_TARGET_CMDS
 endef
 
 define SUNXI_MALI_INSTALL_INIT_SYSV
-	$(INSTALL) -D -m 0755 package/sunxi-mali/S80mali \
-		$(TARGET_DIR)/etc/init.d/S80mali
+#	$(INSTALL) -D -m 0755 package/sunxi-mali/S80mali \
+#		$(TARGET_DIR)/etc/init.d/S80mali
 endef
 
 $(eval $(generic-package))

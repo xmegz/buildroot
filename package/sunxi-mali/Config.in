@@ -5,6 +5,7 @@ config BR2_PACKAGE_SUNXI_MALI
 	# The egl/gles mali libraries are provided as a git submodule of the
 	# sunxi-mali repo and are downloaded by the sunxi-mali-prop package.
 	select BR2_PACKAGE_SUNXI_MALI_PROP
+	select BR2_PACKAGE_SUNXI_MALI_UMP
 	depends on BR2_TOOLCHAIN_USES_GLIBC
 	depends on BR2_arm
 	help
@@ -58,6 +59,14 @@ config BR2_PACKAGE_SUNXI_MALI_R3P1
 
 comment "r3p1 requires an EABIhf toolchain"
 	depends on !BR2_ARM_EABIHF
+
+config BR2_PACKAGE_SUNXI_MALI_R3P2
+	depends on BR2_ARM_EABIHF
+	bool "r3p2"
+
+comment "r3p2 requires an EABIhf toolchain"
+	depends on !BR2_ARM_EABIHF
+
 
 endchoice
 
